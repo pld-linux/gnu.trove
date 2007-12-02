@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project default="jar" name="trove" basedir=".">
+  <property name="defaulttargetdir" value="target">
+  </property>
+  <property name="libdir" value="target/lib">
+  </property>
+  <property name="classesdir" value="target/classes">
+  </property>
+  <property name="distdir" value="dist">
+  </property>
+  <property name="javadocdir" value="dist/docs/api">
+  </property>
+  <property name="final.name" value="trove-1.0.2">
+  </property>
+  <target name="init" description="o Initializes some properties">
+    <mkdir dir="${libdir}">
+    </mkdir>
+  </target>
+  <target name="compile" description="o Compile the code" depends="init">
+    <mkdir dir="${classesdir}">
+    </mkdir>
+    <javac destdir="${classesdir}" deprecation="true" debug="true" optimize="false" excludes="**/package.html">
+      <src>
+        <pathelement location="src">
+        </pathelement>
+      </src>
+      <classpath>
+        <fileset dir="${libdir}">
+          <include name="*.jar">
+          </include>
+        </fileset>
+      </classpath>
+    </javac>
+  </target>
+  <target name="jar" description="o Create the jar" depends="compile">
+    <jar jarfile="target/${final.name}.jar" excludes="**/package.html" basedir="${classesdir}">
+    </jar>
+  </target>
+  <target name="clean" description="o Clean up the generated directories">
+    <delete dir="${defaulttargetdir}">
+    </delete>
+    <delete dir="${distdir}">
+    </delete>
+  </target>
+  <target name="dist" description="o Create a distribution" depends="jar, javadoc">
+    <mkdir dir="dist">
+    </mkdir>
+    <copy todir="dist">
+      <fileset dir="${defaulttargetdir}" includes="*.jar">
+      </fileset>
+      <fileset dir="${basedir}" includes="LICENSE*, README*">
+      </fileset>
+    </copy>
+  </target>
+  <target name="javadoc" description="o Generate javadoc" depends="jar">
+    <mkdir dir="${javadocdir}">
+    </mkdir>
+    <property name="title" value="trove 1.0.2 API">
+    </property>
+    <javadoc use="true" private="true" destdir="${javadocdir}" author="true" version="true" sourcepath="src" packagenames="gnu.trove.*">
+      <classpath>
+        <fileset dir="${libdir}">
+          <include name="*.jar">
+          </include>
+        </fileset>
+        <pathelement location="target/${final.name}.jar">
+        </pathelement>
+      </classpath>
+    </javadoc>
+  </target>
+</project>
