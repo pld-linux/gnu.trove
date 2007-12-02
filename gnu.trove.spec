@@ -15,6 +15,9 @@ BuildRequires:	jpackage-utils >= 0:1.5.32
 BuildRequires:	junit
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
+%if %(locale -a | grep -q '^en_US$'; echo $?)
+BuildRequires:	glibc-localedb-all
+%endif
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -47,7 +50,8 @@ cp %{SOURCE1} build.xml
 
 %build
 export OPT_JAR_LIST="ant/ant-junit junit"
-export CLASSPATH=
+
+export LC_ALL=en_US # source code not US-ASCII
 %ant -Dbuild.sysclasspath=only dist
 
 %install
