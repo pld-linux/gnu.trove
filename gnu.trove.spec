@@ -1,14 +1,15 @@
 %include	/usr/lib/rpm/macros.java
 Summary:	High performance collections for Java
+Summary(pl.UTF-8):	Wysokowydajne kolekcje dla Javy
 Name:		gnu.trove
 Version:	1.0.2
 Release:	0.1
 License:	LGPL
 Group:		Development/Languages/Java
-URL:		http://trove4j.sourceforge.net/
 Source0:	http://dl.sourceforge.net/trove4j/trove-%{version}.tar.gz
 # Source0-md5:	a246a09db112b7986b02c2a9f771bae0
 Source1:	%{name}-build.xml
+URL:		http://trove4j.sourceforge.net/
 BuildRequires:	ant >= 0:1.6
 BuildRequires:	ant-junit >= 0:1.6
 BuildRequires:	jpackage-utils >= 0:1.5.32
@@ -36,13 +37,31 @@ collections. For most applications, however, collections which store
 primitives directly will require less space and yield significant
 performance gains.
 
+%description -l pl.UTF-8
+Biblioteka GNU Trove ma dwa cele:
+
+1. Udostępnienie wolnodostępnych, szybkich, lekkich implementacji
+API java.util Collections. Implementacje te są projektowane jako
+zamienniki ich odpowiedników z JDK.
+
+2. Na ile to możliwe udostępnienie takiej samej obsługi kolekcji dla
+typów prymitywnych. W JDK jest to zwykle osiągane poprzezużycie klas
+obudowujących (java.lang.Integer, java.lang.Float itp.) wraz z
+kolekcjami opartymi na obiektach. Dla większości aplikacji jednak
+kolekcje przechowujące prymitywy zwykle wymagają mniej miejsca i
+osiągają znaczącą poprawę wydajności.
+
 %package javadoc
 Summary:	Javadoc for %{name}
+Summary(pl.UTF-8):	Dokumentacja Javadoc do pakietu %{name}
 Group:		Documentation
 Requires:	jpackage-utils
 
 %description javadoc
-Documentation for %{name}.
+Javadoc documentation for %{name}.
+
+%description javadoc -l pl.UTF-8
+Dokumentacja Javadoc do pakietu %{name}.
 
 %prep
 %setup -q -n trove-%{version}
